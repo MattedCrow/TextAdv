@@ -42,6 +42,7 @@
             // 
             // chatLogTextBox
             // 
+            this.chatLogTextBox.BackColor = System.Drawing.Color.White;
             this.chatLogTextBox.Location = new System.Drawing.Point(12, 12);
             this.chatLogTextBox.Name = "chatLogTextBox";
             this.chatLogTextBox.ReadOnly = true;
@@ -59,6 +60,7 @@
             // 
             // creaturePictureBox
             // 
+            this.creaturePictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("creaturePictureBox.InitialImage")));
             this.creaturePictureBox.Location = new System.Drawing.Point(12, 207);
             this.creaturePictureBox.Name = "creaturePictureBox";
             this.creaturePictureBox.Size = new System.Drawing.Size(75, 105);
@@ -81,6 +83,7 @@
             this.enterButton.TabIndex = 5;
             this.enterButton.Text = "Enter";
             this.enterButton.UseVisualStyleBackColor = true;
+            this.enterButton.Click += new System.EventHandler(this.enterButton_Click);
             // 
             // creatureImageList
             // 
@@ -96,6 +99,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DarkSlateGray;
             this.ClientSize = new System.Drawing.Size(397, 325);
             this.Controls.Add(this.enterButton);
             this.Controls.Add(this.miniMapPictureBox);

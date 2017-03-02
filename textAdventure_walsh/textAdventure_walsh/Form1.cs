@@ -12,10 +12,80 @@ namespace textAdventure_walsh
 {
     public partial class Form1 : Form
     {
+
+        public const int ROWS = 4;
+        public const int COLS = 4;
+        public int[,] coords = new int[ROWS, COLS];
+        int row = 0;
+        int col = 0;
+        
+        class Room
+        {
+            string name;
+        }
+
         public Form1()
         {
             InitializeComponent();
         }
-       
+
+        private void enterButton_Click(object sender, EventArgs e)
+        {
+            string input;
+            char[] delim = { ' ' };
+
+            // Format input properly
+            input = enterTextBox.Text.Trim();
+            input = input.ToLower();
+            string[] tokens = input.Split(delim);
+
+            if (tokens[0] == "move")
+            {
+                // Move North
+                if (tokens[1] == "north" && row != 0)
+                {
+                    row -= 1;
+                    chatLogTextBox.Text += "You moved one place north. New location is (" + row + "," + col + ").\n";
+                }
+                else if (tokens[1] == "north" && row == 0)
+                {
+                    chatLogTextBox.Text += "You can't move any further north! Current location is (" + row + "," + col + ").\n";
+                }
+
+                // Move South
+                if (tokens[1] == "south" && row != 3)
+                {
+                    row += 1;
+                    chatLogTextBox.Text += "You moved one place south. New location is (" + row + "," + col + ").\n";
+                }
+                else if (tokens[1] == "south" && row == 3)
+                {
+                    chatLogTextBox.Text += "You can't move any further south! Current location is (" + row + "," + col + ").\n";
+                }
+
+                // Move East
+                if (tokens[1] == "east" && col != 3)
+                {
+                    col += 1;
+                    chatLogTextBox.Text += "You moved one place east! New location is (" + row + "," + col + ").\n";
+                }
+                else if (tokens[1] == "east" && col == 3)
+                {
+                    chatLogTextBox.Text += "You can't go any further east! Current location is (" + row + "," + col + ").\n";
+                }
+
+                // Move West
+                if (tokens[1] == "west" && col != 0)
+                {
+                    col -= 1;
+                    chatLogTextBox.Text += "You moved one place west! New location is (" + row + "," + col + ").\n";
+                }
+                else if (tokens[1] == "west" && col == 0)
+                {
+                    chatLogTextBox.Text += "You can't go any further west! Current location is (" + row + "," + col + ").\n";
+                }
+            }
+        }
+
     }
 }
