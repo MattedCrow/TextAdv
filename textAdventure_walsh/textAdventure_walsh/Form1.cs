@@ -12,21 +12,25 @@ namespace textAdventure_walsh
 {
     public partial class Form1 : Form
     {
-
+        // Make some variables dude
         public const int ROWS = 4;
         public const int COLS = 4;
         public int[,] coords = new int[ROWS, COLS];
         int row = 0;
         int col = 0;
+        int quitCheck = 0;
         
         class Room
         {
             string name;
+            string activeEnemy;
         }
 
         public Form1()
         {
             InitializeComponent();
+            enterTextBox.Focus();
+            this.AcceptButton = enterButton;
         }
 
         private void enterButton_Click(object sender, EventArgs e)
@@ -85,6 +89,25 @@ namespace textAdventure_walsh
                     chatLogTextBox.Text += "You can't go any further west! Current location is (" + row + "," + col + ").\n";
                 }
             }
+            else if (tokens[0] == "quit")
+            {
+                quitCheck = 1;
+                chatLogTextBox.Text += "Are you sure you want to quit? Enter 'yes' if you are sure. \n";
+            }
+            else if (tokens[0] == "yes" && quitCheck == 1)
+            {
+                this.Close();
+            }
+            else
+            {
+                chatLogTextBox.Text += "You didn't enter a valid command!\n";
+            }
+
+
+            enterTextBox.Text = "";
+            enterTextBox.Focus();
+            chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
+            chatLogTextBox.ScrollToCaret();
         }
 
     }
