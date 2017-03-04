@@ -20,6 +20,9 @@ namespace textAdventure_walsh
         int col = 0;
         int quitCheck = 0;
 
+        // Make a new room object???
+        private Room currentRoom = new Room();
+
         public Form1()
         {
             InitializeComponent();
@@ -40,67 +43,47 @@ namespace textAdventure_walsh
 
             if (tokens[0] == "move")
             {
-                // Move North
-                if (tokens[1] == "north" && row != 0)
-                {
-                    row -= 1;
-                    chatLogTextBox.Text += "You moved one place north. New location is (" + row + "," + col + ").\n";
+                string direction = tokens[1];
 
-                    currentMinimap = "room" + row + col + ".png";
-                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
-                    
-                }
-                else if (tokens[1] == "north" && row == 0)
-                {
-                    chatLogTextBox.Text += "You can't move any further north! Current location is (" + row + "," + col + ").\n";
-                }
+                currentRoom.MoveCharacter(direction, row, col);
 
-                // Move South
-                if (tokens[1] == "south" && row != 3)
-                {
-                    row += 1;
-                    chatLogTextBox.Text += "You moved one place south. New location is (" + row + "," + col + ").\n";
+                string newLocation = currentRoom.CurrentLocation;
 
-                    currentMinimap = "room" + row + col + ".png";
-                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
-                }
-                else if (tokens[1] == "south" && row == 3)
-                {
-                    chatLogTextBox.Text += "You can't move any further south! Current location is (" + row + "," + col + ").\n";
-                }
+                string[] coords = newLocation.Split(delim);
 
-                // Move East
-                if (tokens[1] == "east" && col != 3)
-                {
-                    col += 1;
-                    chatLogTextBox.Text += "You moved one place east! New location is (" + row + "," + col + ").\n";
+                int newRow;
+                int newCol;
 
-                    currentMinimap = "room" + row + col + ".png";
-                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
-                }
-                else if (tokens[1] == "east" && col == 3)
+                int.TryParse(coords[0], out newRow);
+                int.TryParse(coords[1], out newCol);
+
+                if (row == newRow && col == newCol)
                 {
-                    chatLogTextBox.Text += "You can't go any further east! Current location is (" + row + "," + col + ").\n";
+                    chatLogTextBox.Text += "It seems you were unable to move! Are you on the edge of the map?\n"
+                        + "Current location is (" + row + "," + col + ").\n";
+                    row = newRow;
+                    col = newCol;
+                }
+                else
+                {
+                    row = newRow;
+                    col = newCol;
+                    chatLogTextBox.Text += "You moved one space! New location is (" + row + "," + col + ").\n";
                 }
 
-                // Move West
-                if (tokens[1] == "west" && col != 0)
-                {
-                    col -= 1;
-                    chatLogTextBox.Text += "You moved one place west! New location is (" + row + "," + col + ").\n";
+                currentMinimap = "room" + row + col + ".png";
+                miniMapPictureBox.Image = Image.FromFile(currentMinimap);
 
-                    currentMinimap = "room" + row + col + ".png";
-                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
-                }
-                else if (tokens[1] == "west" && col == 0)
-                {
-                    chatLogTextBox.Text += "You can't go any further west! Current location is (" + row + "," + col + ").\n";
-                }
+                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
+                chatLogTextBox.ScrollToCaret();
             }
             else if (tokens[0] == "quit")
             {
                 quitCheck = 1;
                 chatLogTextBox.Text += "Are you sure you want to quit? Enter 'yes' if you are sure. \n";
+
+                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
+                chatLogTextBox.ScrollToCaret();
             }
             else if (tokens[0] == "yes" && quitCheck == 1)
             {
@@ -109,13 +92,14 @@ namespace textAdventure_walsh
             else
             {
                 chatLogTextBox.Text += "You didn't enter a valid command!\n";
+
+                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
+                chatLogTextBox.ScrollToCaret();
             }
 
 
             enterTextBox.Text = "";
             enterTextBox.Focus();
-            chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-            chatLogTextBox.ScrollToCaret();
         }
 
     }
