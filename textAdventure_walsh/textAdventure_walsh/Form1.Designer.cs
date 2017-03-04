@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chatLogTextBox = new System.Windows.Forms.RichTextBox();
             this.enterTextBox = new System.Windows.Forms.TextBox();
             this.creaturePictureBox = new System.Windows.Forms.PictureBox();
             this.miniMapPictureBox = new System.Windows.Forms.PictureBox();
             this.enterButton = new System.Windows.Forms.Button();
-            this.creatureImageList = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.creaturePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniMapPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -69,9 +67,12 @@
             // 
             // miniMapPictureBox
             // 
+            this.miniMapPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("miniMapPictureBox.Image")));
+            this.miniMapPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("miniMapPictureBox.InitialImage")));
             this.miniMapPictureBox.Location = new System.Drawing.Point(280, 207);
             this.miniMapPictureBox.Name = "miniMapPictureBox";
             this.miniMapPictureBox.Size = new System.Drawing.Size(105, 105);
+            this.miniMapPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.miniMapPictureBox.TabIndex = 4;
             this.miniMapPictureBox.TabStop = false;
             // 
@@ -84,16 +85,6 @@
             this.enterButton.Text = "Enter";
             this.enterButton.UseVisualStyleBackColor = true;
             this.enterButton.Click += new System.EventHandler(this.enterButton_Click);
-            // 
-            // creatureImageList
-            // 
-            this.creatureImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("creatureImageList.ImageStream")));
-            this.creatureImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.creatureImageList.Images.SetKeyName(0, "GakiIcon.png");
-            this.creatureImageList.Images.SetKeyName(1, "HellhoundIcon.png");
-            this.creatureImageList.Images.SetKeyName(2, "HumanIcon.png");
-            this.creatureImageList.Images.SetKeyName(3, "OniIcon.png");
-            this.creatureImageList.Images.SetKeyName(4, "PlayerIcon.png");
             // 
             // Form1
             // 
@@ -122,7 +113,6 @@
         private System.Windows.Forms.PictureBox creaturePictureBox;
         private System.Windows.Forms.PictureBox miniMapPictureBox;
         private System.Windows.Forms.Button enterButton;
-        private System.Windows.Forms.ImageList creatureImageList;
     }
 }
 

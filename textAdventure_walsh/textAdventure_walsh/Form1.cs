@@ -19,12 +19,6 @@ namespace textAdventure_walsh
         int row = 0;
         int col = 0;
         int quitCheck = 0;
-        
-        class Room
-        {
-            string name;
-            string activeEnemy;
-        }
 
         public Form1()
         {
@@ -36,6 +30,7 @@ namespace textAdventure_walsh
         private void enterButton_Click(object sender, EventArgs e)
         {
             string input;
+            string currentMinimap;
             char[] delim = { ' ' };
 
             // Format input properly
@@ -50,6 +45,10 @@ namespace textAdventure_walsh
                 {
                     row -= 1;
                     chatLogTextBox.Text += "You moved one place north. New location is (" + row + "," + col + ").\n";
+
+                    currentMinimap = "room" + row + col + ".png";
+                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
+                    
                 }
                 else if (tokens[1] == "north" && row == 0)
                 {
@@ -61,6 +60,9 @@ namespace textAdventure_walsh
                 {
                     row += 1;
                     chatLogTextBox.Text += "You moved one place south. New location is (" + row + "," + col + ").\n";
+
+                    currentMinimap = "room" + row + col + ".png";
+                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
                 }
                 else if (tokens[1] == "south" && row == 3)
                 {
@@ -72,6 +74,9 @@ namespace textAdventure_walsh
                 {
                     col += 1;
                     chatLogTextBox.Text += "You moved one place east! New location is (" + row + "," + col + ").\n";
+
+                    currentMinimap = "room" + row + col + ".png";
+                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
                 }
                 else if (tokens[1] == "east" && col == 3)
                 {
@@ -83,6 +88,9 @@ namespace textAdventure_walsh
                 {
                     col -= 1;
                     chatLogTextBox.Text += "You moved one place west! New location is (" + row + "," + col + ").\n";
+
+                    currentMinimap = "room" + row + col + ".png";
+                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
                 }
                 else if (tokens[1] == "west" && col == 0)
                 {
