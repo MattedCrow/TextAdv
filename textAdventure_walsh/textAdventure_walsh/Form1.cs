@@ -75,7 +75,7 @@ namespace textAdventure_walsh
                     chatLogTextBox.Text += "You moved one space! New location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
                 }
 
-                currentMinimap = "room" + engine.World.currentRow + engine.World.currentCol + ".png";
+                currentMinimap = "Resources/room" + engine.World.currentRow + engine.World.currentCol + ".png";
                 miniMapPictureBox.Image = Image.FromFile(currentMinimap);
 
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
