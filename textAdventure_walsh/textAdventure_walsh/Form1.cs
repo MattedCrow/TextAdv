@@ -20,16 +20,18 @@ namespace textAdventure_walsh
         int col = 0; */
         int quitCheck = 0;
 
-        // Make the objects I GUESS??
-        private Move moveChar = new Move();
-        private World World = new World();
-        private Room Room = new Room();
+        // Make the world object
+        private GameEngine engine;
 
         public Form1()
         {
             InitializeComponent();
-            enterTextBox.Focus();
             this.AcceptButton = enterButton;
+            engine = new GameEngine();
+            engine.Init();
+
+            chatLogTextBox.Text += "Current commands are 'move (direction)' and 'quit'.\n";
+            enterTextBox.Focus();
         }
 
         private void enterButton_Click(object sender, EventArgs e)
@@ -47,9 +49,9 @@ namespace textAdventure_walsh
             {
                 string direction = tokens[1];
 
-                moveChar.MoveCharacter(direction, World.currentRow, World.currentCol);
+                engine.World.MoveCharacter(direction, engine.World.currentRow, engine.World.currentCol);
 
-                string newLocation = moveChar.CurrentLocation;
+                string newLocation = engine.World.CurrentLocation;
 
                 string[] newCoords = newLocation.Split(delim);
 
@@ -59,21 +61,21 @@ namespace textAdventure_walsh
                 int.TryParse(newCoords[0], out newRow);
                 int.TryParse(newCoords[1], out newCol);
 
-                if (World.currentRow == newRow && World.currentCol == newCol)
+                if (engine.World.currentRow == newRow && engine.World.currentCol == newCol)
                 {
-                    chatLogTextBox.Text += "It seems you were unable to move! Are you on the edge of the map?\n"
-                        + "Current location is (" + World.currentRow + "," + World.currentCol + ").\n";
-                    World.currentRow = newRow;
-                    World.currentCol = newCol;
+                    chatLogTextBox.Text += "You can't move through walls!\n"
+                        + "Current location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
+                    engine.World.currentRow = newRow;
+                    engine.World.currentCol = newCol;
                 }
                 else
                 {
-                    World.currentRow = newRow;
-                    World.currentCol = newCol;
-                    chatLogTextBox.Text += "You moved one space! New location is (" + World.currentRow + "," + World.currentCol + ").\n";
+                    engine.World.currentRow = newRow;
+                    engine.World.currentCol = newCol;
+                    chatLogTextBox.Text += "You moved one space! New location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
                 }
 
-                currentMinimap = "room" + World.currentRow + World.currentCol + ".png";
+                currentMinimap = "room" + engine.World.currentRow + engine.World.currentCol + ".png";
                 miniMapPictureBox.Image = Image.FromFile(currentMinimap);
 
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
