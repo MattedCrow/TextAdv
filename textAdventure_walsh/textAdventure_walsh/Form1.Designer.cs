@@ -97,6 +97,7 @@
             this.Controls.Add(this.creaturePictureBox);
             this.Controls.Add(this.enterTextBox);
             this.Controls.Add(this.chatLogTextBox);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Into the Dungeon";
             ((System.ComponentModel.ISupportInitialize)(this.creaturePictureBox)).EndInit();

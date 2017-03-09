@@ -8,39 +8,12 @@ namespace textAdventure_walsh
 {
     class Room
     {
-        private string _currentLocation;  // row space col
+        public string Desc { get; set; }
 
-        public string CurrentLocation
-        {
-            get { return _currentLocation; }
-        }
+        public bool CanGoNorth { get; set; }
+        public bool CanGoEast { get; set; }
+        public bool CanGoSouth { get; set; }
+        public bool CanGoWest { get; set; }
 
-        public void MoveCharacter (string direction, int row, int col)
-        {
-            if (direction == "north" && row != 0)
-            {
-                row -= 1;
-                _currentLocation = row + " " + col;
-            }
-            else if (direction == "south" && row != 3)
-            {
-                row += 1;
-                _currentLocation = row + " " + col;
-            }
-            else if (direction == "east" && col != 3)
-            {
-                col += 1;
-                _currentLocation = row + " " + col;
-            }
-            else if (direction == "west" && col != 0)
-            {
-                col -= 1;
-                _currentLocation = row + " " + col;
-            }
-            else
-            {
-                _currentLocation = row + " " + col;
-            }
-        }
     }
 }

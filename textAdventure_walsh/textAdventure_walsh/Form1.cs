@@ -13,15 +13,17 @@ namespace textAdventure_walsh
     public partial class Form1 : Form
     {
         // Make some variables dude
-        public const int ROWS = 4;
+        /* public const int ROWS = 4;
         public const int COLS = 4;
         public int[,] coords = new int[ROWS, COLS];
         int row = 0;
-        int col = 0;
+        int col = 0; */
         int quitCheck = 0;
 
-        // Make a new room object???
-        private Room currentRoom = new Room();
+        // Make the objects I GUESS??
+        private Move moveChar = new Move();
+        private World World = new World();
+        private Room Room = new Room();
 
         public Form1()
         {
@@ -45,33 +47,33 @@ namespace textAdventure_walsh
             {
                 string direction = tokens[1];
 
-                currentRoom.MoveCharacter(direction, row, col);
+                moveChar.MoveCharacter(direction, World.currentRow, World.currentCol);
 
-                string newLocation = currentRoom.CurrentLocation;
+                string newLocation = moveChar.CurrentLocation;
 
-                string[] coords = newLocation.Split(delim);
+                string[] newCoords = newLocation.Split(delim);
 
                 int newRow;
                 int newCol;
 
-                int.TryParse(coords[0], out newRow);
-                int.TryParse(coords[1], out newCol);
+                int.TryParse(newCoords[0], out newRow);
+                int.TryParse(newCoords[1], out newCol);
 
-                if (row == newRow && col == newCol)
+                if (World.currentRow == newRow && World.currentCol == newCol)
                 {
                     chatLogTextBox.Text += "It seems you were unable to move! Are you on the edge of the map?\n"
-                        + "Current location is (" + row + "," + col + ").\n";
-                    row = newRow;
-                    col = newCol;
+                        + "Current location is (" + World.currentRow + "," + World.currentCol + ").\n";
+                    World.currentRow = newRow;
+                    World.currentCol = newCol;
                 }
                 else
                 {
-                    row = newRow;
-                    col = newCol;
-                    chatLogTextBox.Text += "You moved one space! New location is (" + row + "," + col + ").\n";
+                    World.currentRow = newRow;
+                    World.currentCol = newCol;
+                    chatLogTextBox.Text += "You moved one space! New location is (" + World.currentRow + "," + World.currentCol + ").\n";
                 }
 
-                currentMinimap = "room" + row + col + ".png";
+                currentMinimap = "room" + World.currentRow + World.currentCol + ".png";
                 miniMapPictureBox.Image = Image.FromFile(currentMinimap);
 
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
