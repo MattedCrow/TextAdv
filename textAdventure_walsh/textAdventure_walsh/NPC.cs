@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace textAdventure_walsh
 {
-    class Move
+    class NPC
     {
-        // unused
+        // unused currently
     }
 }

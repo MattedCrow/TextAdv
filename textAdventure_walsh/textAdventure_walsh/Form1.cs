@@ -30,7 +30,7 @@ namespace textAdventure_walsh
             engine = new GameEngine();
             engine.Init();
 
-            chatLogTextBox.Text += "Current commands are 'move (direction)' and 'quit'.\n";
+            chatLogTextBox.Text += "Current commands are 'move (direction)', 'look' and 'quit'.\n";
             enterTextBox.Focus();
         }
 
@@ -77,6 +77,13 @@ namespace textAdventure_walsh
 
                 currentMinimap = "room" + engine.World.currentRow + engine.World.currentCol + ".png";
                 miniMapPictureBox.Image = Image.FromFile(currentMinimap);
+
+                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
+                chatLogTextBox.ScrollToCaret();
+            }
+            else if (tokens[0] == "look")
+            {
+                chatLogTextBox.Text += engine.World.coords[engine.World.currentRow, engine.World.currentCol].Desc;
 
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
                 chatLogTextBox.ScrollToCaret();
