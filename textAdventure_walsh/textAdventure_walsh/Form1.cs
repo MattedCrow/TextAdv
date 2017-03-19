@@ -13,11 +13,6 @@ namespace textAdventure_walsh
     public partial class Form1 : Form
     {
         // Make some variables dude
-        /* public const int ROWS = 4;
-        public const int COLS = 4;
-        public int[,] coords = new int[ROWS, COLS];
-        int row = 0;
-        int col = 0; */
         int quitCheck = 0;
 
         // Make the world object
@@ -45,7 +40,7 @@ namespace textAdventure_walsh
             input = input.ToLower();
             string[] tokens = input.Split(delim);
 
-            if (tokens[0] == "move")
+            if (tokens[0] == "move" && engine.World.inBattle == false)
             {
                 string direction = tokens[1];
 
@@ -82,13 +77,26 @@ namespace textAdventure_walsh
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
                 chatLogTextBox.ScrollToCaret();
             }
-            else if (tokens[0] == "look")
+            else if (tokens[0] == "look" /* && engine.World.inBattle == false */)
             {
                 chatLogTextBox.Text += engine.World.coords[engine.World.currentRow, engine.World.currentCol].Desc;
 
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
                 chatLogTextBox.ScrollToCaret();
             }
+            // else if (tokens[0] == "look" && engine.World.inBattle == true)
+
+            // else if (tokens[0] == "get" && engine.World.inBattle == false)
+
+            // else if (tokens[0] == "open" && engine.World.inBattle == false)
+
+            // else if (tokens[0] == "use" && engine.World.inBattle == false)
+            // else if (tokens[0] == "use" && engine.World.inBattle == true)
+
+            // else if (tokens[0] == "attack" && engine.World.inBattle == false)
+            // else if (tokens[0] == "attack" && engine.World.inBattle == true)
+
+            // else if (tokens[0] == "leave" && gameWon == true)
             else if (tokens[0] == "quit")
             {
                 quitCheck = 1;

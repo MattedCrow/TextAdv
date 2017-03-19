@@ -16,6 +16,8 @@ namespace textAdventure_walsh
         public int currentRow { get; set; }
         public int currentCol { get; set; }
 
+        public bool inBattle { get; set; }
+
         public World()
         {
             MaxRow = 4;
@@ -25,6 +27,8 @@ namespace textAdventure_walsh
 
             currentCol = 0;
             currentRow = 0;
+
+            inBattle = false;
         }
 
         public void Init()

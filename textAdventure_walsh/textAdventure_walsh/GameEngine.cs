@@ -19,7 +19,6 @@ namespace textAdventure_walsh
         {
             World = new World();
             World.Init();
-
         }
     }
 }
