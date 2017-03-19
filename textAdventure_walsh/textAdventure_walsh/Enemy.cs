@@ -21,7 +21,7 @@ namespace textAdventure_walsh
         public Enemy()
         {
             _enemyName = "Enemy";
-            _enemyDesc = "A creature";
+            _enemyDesc = "A creature\n\n";
             _enemyHLT = 5;
             _enemyATK = 1;
             _enemyDEF = 1;

@@ -10,6 +10,9 @@ namespace textAdventure_walsh
     {
         public Room[,] coords;
 
+        public Enemy enemy;
+        public Player player;
+
         public int MaxRow { get; set; }
         public int MaxCol { get; set; }
 
@@ -24,6 +27,8 @@ namespace textAdventure_walsh
             MaxCol = 4;
 
             coords = new Room[MaxRow, MaxCol];
+            enemy = new Enemy();
+            player = new Player();
 
             currentCol = 0;
             currentRow = 0;

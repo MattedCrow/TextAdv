@@ -77,15 +77,20 @@ namespace textAdventure_walsh
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
                 chatLogTextBox.ScrollToCaret();
             }
-            else if (tokens[0] == "look" /* && engine.World.inBattle == false */)
+            else if (tokens[0] == "look" && engine.World.inBattle == false)
             {
                 chatLogTextBox.Text += engine.World.coords[engine.World.currentRow, engine.World.currentCol].Desc;
 
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
                 chatLogTextBox.ScrollToCaret();
             }
-            // else if (tokens[0] == "look" && engine.World.inBattle == true)
+            else if (tokens[0] == "look" && engine.World.inBattle == true)
+            {
+                chatLogTextBox.Text += engine.World.enemy.EnemyDesc;
 
+                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
+                chatLogTextBox.ScrollToCaret();
+            }
             // else if (tokens[0] == "get" && engine.World.inBattle == false)
 
             // else if (tokens[0] == "open" && engine.World.inBattle == false)

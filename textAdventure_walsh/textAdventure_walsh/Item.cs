@@ -9,5 +9,11 @@ namespace textAdventure_walsh
     class Item
     {
         // Unused
+        
+        // Strength Potion
+        // Health Potion
+        // Sword
+        // Money??
+        // Key
     }
 }
