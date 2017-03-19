@@ -73,6 +73,7 @@ namespace textAdventure_walsh
                     engine.World.currentRow = newRow;
                     engine.World.currentCol = newCol;
                     chatLogTextBox.Text += "You moved one space! New location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
+                    chatLogTextBox.Text += engine.World.coords[newRow, newCol].EnterDesc;
                 }
 
                 currentMinimap = "Resources/room" + engine.World.currentRow + engine.World.currentCol + ".png";

@@ -8,6 +8,6 @@ namespace textAdventure_walsh
 {
     class Item
     {
-
+        // Unused
     }
 }

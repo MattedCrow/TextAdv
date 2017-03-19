@@ -13,6 +13,7 @@ namespace textAdventure_walsh
         public bool _canGoSouth;
         public bool _canGoWest;
         public string _desc;
+        public string _enterDesc;
 
         // Constructors maybe??
         public Room()
@@ -21,7 +22,8 @@ namespace textAdventure_walsh
             _canGoEast = false;
             _canGoSouth = false;
             _canGoWest = false;
-            _desc = "A room";
+            _desc = "You're in a room";
+            _enterDesc = "This is a different room.";
         }
 
         public bool CanGoNorth
@@ -49,6 +51,12 @@ namespace textAdventure_walsh
         {
             get { return _desc; }
             set { _desc = value; }
+        }
+
+        public string EnterDesc
+        {
+            get { return _enterDesc; }
+            set { _enterDesc = value; }
         }
 
     }
