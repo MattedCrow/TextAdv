@@ -58,10 +58,12 @@
             // 
             // creaturePictureBox
             // 
+            this.creaturePictureBox.Image = global::textAdventure_walsh.Properties.Resources.PlayerIcon;
             this.creaturePictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("creaturePictureBox.InitialImage")));
             this.creaturePictureBox.Location = new System.Drawing.Point(12, 207);
             this.creaturePictureBox.Name = "creaturePictureBox";
             this.creaturePictureBox.Size = new System.Drawing.Size(75, 105);
+            this.creaturePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.creaturePictureBox.TabIndex = 2;
             this.creaturePictureBox.TabStop = false;
             // 

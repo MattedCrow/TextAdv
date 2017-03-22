@@ -15,5 +15,11 @@ namespace textAdventure_walsh
         // Sword
         // Money??
         // Key
+
+        /* Each object should have the following properties:
+         * bool canBeUsed -- important for money
+         * bool obtainedByPlayer
+         * bool isUsed  -- differs from canBeUsed, important for sword and key
+         * */
     }
 }

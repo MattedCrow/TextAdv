@@ -13,8 +13,8 @@ namespace textAdventure_walsh
         public Enemy enemy;
         public Player player;
 
-        public int MaxRow { get; set; }
-        public int MaxCol { get; set; }
+        private int MaxRow { get; }
+        private int MaxCol { get; }
 
         public int currentRow { get; set; }
         public int currentCol { get; set; }
@@ -48,7 +48,7 @@ namespace textAdventure_walsh
             }
 
             // ROW ONE
-            coords[0,0].EnterDesc = "This room is where you came in.\n\n";
+            coords[0, 0].EnterDesc = "This room is where you came in.\n\n";
             coords[0, 0].Desc = "The entrance is right there.\n\n";
             coords[0, 0].CanGoEast = true;
             coords[0, 0].CanGoNorth = false;
@@ -122,9 +122,9 @@ namespace textAdventure_walsh
 
             coords[2, 2].EnterDesc = "There's a person being attacked here! But we can't.. help.. yet. \n\n";
             coords[2, 2].Desc = "If only you hadn't misplaced your sword. Then you could of helped. \n\n";
-            coords[2, 2].CanGoNorth = true;
+            coords[2, 2].CanGoNorth = false;
             coords[2, 2].CanGoEast = true;
-            coords[2, 2].CanGoSouth = false;
+            coords[2, 2].CanGoSouth = true;
             coords[2, 2].CanGoWest = false;
 
             coords[2, 3].EnterDesc = "Is that person sleeping on that chest?\n\n";
@@ -132,7 +132,7 @@ namespace textAdventure_walsh
             coords[2, 3].CanGoNorth = true;
             coords[2, 3].CanGoEast = false;
             coords[2, 3].CanGoSouth = true;
-            coords[2, 3].CanGoWest = false;
+            coords[2, 3].CanGoWest = true;
 
             // ROW FOUR
             coords[3, 0].EnterDesc = "There's an enemey sleeping in here! Let's slip by them for now.\n\n";
@@ -140,7 +140,7 @@ namespace textAdventure_walsh
             coords[3, 0].CanGoEast = true;
             coords[3, 0].CanGoNorth = true;
             coords[3, 0].CanGoWest = false;
-            coords[3, 0].CanGoSouth = true;
+            coords[3, 0].CanGoSouth = false;
 
             coords[3, 1].EnterDesc = "Just an empty room it seems...\n\n";
             coords[3, 1].Desc = "This room is amazingly boring.\n\n";
@@ -154,13 +154,13 @@ namespace textAdventure_walsh
             coords[3, 2].CanGoNorth = true;
             coords[3, 2].CanGoEast = false;
             coords[3, 2].CanGoSouth = false;
-            coords[3, 2].CanGoWest = false;
+            coords[3, 2].CanGoWest = true;
 
             coords[3, 3].EnterDesc = "Is that person... friendly? Let's not find out.\n\n";
             coords[3, 3].Desc = "Why are you still staring at them?\n\n";
             coords[3, 3].CanGoNorth = true;
             coords[3, 3].CanGoEast = false;
-            coords[3, 3].CanGoSouth = true;
+            coords[3, 3].CanGoSouth = false;
             coords[3, 3].CanGoWest = false;
         }
 
