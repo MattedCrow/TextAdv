@@ -6,69 +6,57 @@ using System.Threading.Tasks;
 
 namespace textAdventure_walsh
 {
-    class Player
+    class Player : Mob
     {
-        // unused currently
-
-        public int _playerHLT;      // Health
-        public int _playerATK;      // Attack
-        public int _playerDEF;      // Defense
-        public int _playerSPD;      // Speed
-        public int _playerEVA;      // Evasiveness
-        public bool _playerHolding; // Is the player holding an item?
-        public bool _playerSword;   // Does the player have a sword
+        private string _name;
+        private bool _hasSword;           // If player has a sword = true
+        private bool _holdingObject;      // If player is holding an object = true
+        private string _currentlyHolding; // Name of currently held object
 
         public Player()
         {
-            _playerHLT = 100;
-            _playerATK = 28;
-            _playerDEF = 15;
-            _playerSPD = 12;
-            _playerEVA = 11;
-            _playerHolding = false;
-            _playerSword = false;
+            _name = "Player";
+            _hasSword = false;
+            _holdingObject = false;
+            _currentlyHolding = "Nothing";
         }
 
-        public int PlayerHLT
+        public bool HasSword
         {
-            get { return _playerHLT; }
-            set { _playerHLT = value; }
+            get; set;
         }
 
-        public int PlayerATK
+        public bool HoldingObject
         {
-            get { return _playerATK; }
-            set { _playerATK = value; }
+            get; set;
         }
 
-        public int PlayerDEF
+        public string CurrentlyHolding
         {
-            get { return _playerDEF; }
-            set { _playerDEF = value; }
+            get; set;
         }
 
-        public int PlayerSPD
+        public override string Name
         {
-            get { return _playerSPD; }
-            set { _playerSPD = value; }
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                _name = value;
+            }
         }
 
-        public int PlayerEVA
+        public string getInfo()
         {
-            get { return _playerEVA; }
-            set { _playerEVA = value; }
-        }
+            string stats;
 
-        public bool PlayerHolding
-        {
-            get { return _playerHolding; }
-            set { _playerHolding = value; }
-        }
+            stats = Name + "\nHealth: " + HLT.ToString() + "\nAttack: " + ATK.ToString() + "\nDefense: " + DEF.ToString()
+                + "\nSpeed: " + SPD.ToString() + "\nEvasiveness: " + EVA.ToString() + "\nCurrent Item: " + CurrentlyHolding + "\n\n";
 
-        public bool PlayerSword
-        {
-            get { return _playerSword; }
-            set { _playerSword = value; }
+            return stats;
         }
     }
 }

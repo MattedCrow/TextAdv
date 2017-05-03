@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="GameEngine.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="Mob.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

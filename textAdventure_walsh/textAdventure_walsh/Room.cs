@@ -12,18 +12,42 @@ namespace textAdventure_walsh
         public bool _canGoEast;
         public bool _canGoSouth;
         public bool _canGoWest;
+
         public string _desc;
         public string _enterDesc;
 
-        // Constructors maybe??
+        public string _item;
+        public bool _itemExists;
+
+        public bool _hasEnemy;
+        public int _enemyIndex;
+
+        public bool _hasNPC;
+        public int _npcIndex;
+        public bool _spokenToNPC;
+        public bool _npcHasExtraDialouge;
+
+        // Constructors
         public Room()
         {
             _canGoNorth = false;
             _canGoEast = false;
             _canGoSouth = false;
             _canGoWest = false;
+
             _desc = "You're in a room";
             _enterDesc = "This is a different room.";
+
+            _item = "";
+            _itemExists = false;
+
+            _hasEnemy = false;
+            _enemyIndex = -1;
+
+            _hasNPC = false;
+            _npcIndex = -1;
+            _spokenToNPC = false;
+            _npcHasExtraDialouge = false;
         }
 
         public bool CanGoNorth
@@ -59,5 +83,47 @@ namespace textAdventure_walsh
             set { _enterDesc = value; }
         }
 
+        public bool ItemExists
+        {
+            get { return _itemExists; }
+            set { _itemExists = value; }
+        }
+
+        public string Item
+        {
+            get { return _item; }
+            set { _item = value; }
+        }
+
+        public bool HasEnemy
+        {
+            get; set;
+        }
+
+        public int EnemyIndex
+        {
+            get; set;
+        }
+
+        public bool HasNPC
+        {
+            get; set;
+        }
+
+        public int npcIndex
+        {
+            get; set;
+        }
+
+        public bool SpokenToNPC
+        {
+            get; set;
+        }
+
+        public bool NPCHasExtraDialogue
+        {
+            get { return _npcHasExtraDialouge; }
+            set { _npcHasExtraDialouge = value; }
+        }
     }
 }

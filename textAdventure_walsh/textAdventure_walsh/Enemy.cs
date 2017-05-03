@@ -6,33 +6,29 @@ using System.Threading.Tasks;
 
 namespace textAdventure_walsh
 {
-    class Enemy
+    class Enemy : Mob
     {
         // unused currently
 
-        public string _enemyName;  // The enemy's name
+        public string _enemyClass;  // The enemy's name
         public string _enemyDesc;  // A description of the enemy
-        public int _enemyHLT;      // Health
-        public int _enemyATK;      // Attack
-        public int _enemyDEF;      // Defense
-        public int _enemySPD;      // Speed
-        public int _enemyEVA;      // Evasiveness
+
+        private bool _isHostile;
+        private string _name;
 
         public Enemy()
         {
-            _enemyName = "Enemy";
+            _enemyClass = "Yokai";
             _enemyDesc = "A creature\n\n";
-            _enemyHLT = 5;
-            _enemyATK = 1;
-            _enemyDEF = 1;
-            _enemySPD = 2;
-            _enemyEVA = 1;
+
+            _isHostile = true;
+            _name = "Generic Monster";
         }
 
-        public string EnemyName
+        public string EnemyClass
         {
-            get { return _enemyName; }
-            set { _enemyName = value; }
+            get { return _enemyClass; }
+            set { _enemyClass = value; }
         }
 
         public string EnemyDesc
@@ -41,34 +37,40 @@ namespace textAdventure_walsh
             set { _enemyDesc = value; }
         }
 
-        public int EnemyHLT
+        public override bool IsHostile
         {
-            get { return _enemyHLT; }
-            set { _enemyHLT = value; }
+            get
+            {
+                return _isHostile;
+            }
+
+            set
+            {
+                _isHostile = value;
+            }
         }
 
-        public int EnemyATK
+        public override string Name
         {
-            get { return _enemyATK; }
-            set { _enemyATK = value; }
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                _name = value;
+            }
         }
 
-        public int EnemyDEF
+        public string getInfo()
         {
-            get { return _enemyDEF; }
-            set { _enemyDEF = value; }
-        }
+            string stats;
 
-        public int EnemySPD
-        {
-            get { return _enemySPD; }
-            set { _enemySPD = value; }
-        }
+            stats = Name + "\nHealth: " + HLT.ToString() + "\nAttack: " + ATK.ToString() + "\nDefense: " + DEF.ToString()
+                + "\nSpeed: " + SPD.ToString() + "\nEvasiveness: " + EVA.ToString() + "\nClass: " + EnemyClass + "\n\n";
 
-        public int EnemyEVA
-        {
-            get { return _enemyEVA; }
-            set { _enemyEVA = value; }
+            return stats;
         }
     }
 }
