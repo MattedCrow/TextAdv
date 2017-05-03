@@ -34,8 +34,10 @@
             this.creaturePictureBox = new System.Windows.Forms.PictureBox();
             this.miniMapPictureBox = new System.Windows.Forms.PictureBox();
             this.enterButton = new System.Windows.Forms.Button();
+            this.otherPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.creaturePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniMapPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.otherPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // chatLogTextBox
@@ -88,12 +90,24 @@
             this.enterButton.UseVisualStyleBackColor = true;
             this.enterButton.Click += new System.EventHandler(this.enterButton_Click);
             // 
+            // otherPictureBox
+            // 
+            this.otherPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("otherPictureBox.InitialImage")));
+            this.otherPictureBox.Location = new System.Drawing.Point(93, 207);
+            this.otherPictureBox.Name = "otherPictureBox";
+            this.otherPictureBox.Size = new System.Drawing.Size(75, 105);
+            this.otherPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.otherPictureBox.TabIndex = 6;
+            this.otherPictureBox.TabStop = false;
+            this.otherPictureBox.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateGray;
             this.ClientSize = new System.Drawing.Size(397, 325);
+            this.Controls.Add(this.otherPictureBox);
             this.Controls.Add(this.enterButton);
             this.Controls.Add(this.miniMapPictureBox);
             this.Controls.Add(this.creaturePictureBox);
@@ -105,6 +119,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.creaturePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniMapPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.otherPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,6 +132,7 @@
         private System.Windows.Forms.PictureBox creaturePictureBox;
         private System.Windows.Forms.PictureBox miniMapPictureBox;
         private System.Windows.Forms.Button enterButton;
+        private System.Windows.Forms.PictureBox otherPictureBox;
     }
 }
 

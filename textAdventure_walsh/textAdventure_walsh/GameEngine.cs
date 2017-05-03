@@ -13,6 +13,7 @@ namespace textAdventure_walsh
         public Enemy Monster { get; set; }
         public Player Player { get; set; }
         public NPC NPC { get; set; }
+        public CombatEngine combat { get; set; }
 
 
         // Create array to hold creatures
@@ -23,6 +24,11 @@ namespace textAdventure_walsh
         public const int NPC_SIZE = 5;
         public string[] npcs = new string[NPC_SIZE];
 
+        // Win/Lose Variables
+        public bool gameLost;
+        public bool gameWon;
+
+
 
         public GameEngine()
         {
@@ -30,9 +36,6 @@ namespace textAdventure_walsh
             this.LoadEnemyList();
             this.LoadNPCList();
 
-            Monster = new Enemy();
-            Player = new Player();
-            NPC = new NPC();
         }
 
         public void Init()
@@ -40,7 +43,12 @@ namespace textAdventure_walsh
             World = new World();
             World.Init();
 
+            Monster = new Enemy();
+            Player = new Player();
+            NPC = new NPC();
 
+            gameLost = false;
+            gameWon = false;
         }
 
 

@@ -20,6 +20,10 @@ namespace textAdventure_walsh
 
         private bool _isHostile; // Checks if Mob is hostile
 
+        Die _damageDie1 = new Die();
+        Die _damageDie2 = new Die();
+
+
         // Constraints
         public Mob()
         {
@@ -74,6 +78,18 @@ namespace textAdventure_walsh
         public virtual bool IsHostile
         {
             get; set;
+        }
+
+        public Die DamageDie1
+        {
+            get { return _damageDie1; }
+            set { _damageDie1 = value; }
+        }
+
+        public Die DamageDie2
+        {
+            get { return _damageDie2; }
+            set { _damageDie2 = value; }
         }
     }
 }
