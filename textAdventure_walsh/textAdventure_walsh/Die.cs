@@ -13,7 +13,7 @@ namespace textAdventure_walsh
         private int _dieResultB;
         private Random _rand;
 
-        public Die(int dieSize = 6)
+        public Die(int dieSize = 10)
         {
             _size = dieSize;
             _rand = new Random();

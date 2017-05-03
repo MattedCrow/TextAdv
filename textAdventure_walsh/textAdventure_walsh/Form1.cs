@@ -151,7 +151,7 @@ namespace textAdventure_walsh
             combat = new CombatEngine();
             engine.Init();
 
-            chatLogTextBox.Text += "Current commands are 'move (direction)', 'look', 'get', and 'quit'.\n";
+            chatLogTextBox.Text += "Current commands are 'move (direction)', 'look', 'get', 'use', 'attack', 'talk', 'leave' (after game completion), and 'quit'.\n";
             enterTextBox.Focus();
 
             LoadPlayerInfo();
@@ -225,15 +225,18 @@ namespace textAdventure_walsh
             }
             else if (tokens[0] == "get" && engine.World.inBattle == false)
             {
-                if (engine.World.coords[engine.World.currentRow, engine.World.currentCol].ItemExists == true && engine.Player.HoldingObject == false)
+                int currentRow = engine.World.currentRow;
+                int currentCol = engine.World.currentCol;
+
+                if (engine.World.coords[currentRow, currentCol].ItemExists == true && engine.Player.HoldingObject == false)
                 {
-                    if (engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item != "Chest")
+                    if (engine.World.coords[currentRow, currentCol].Item != "Chest")
                     {
-                        string newItem = engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item;
+                        string newItem = engine.World.coords[currentRow, currentCol].Item;
 
                         chatLogTextBox.Text += "You picked up a " + newItem + ".\n";
 
-                        engine.World.coords[engine.World.currentRow, engine.World.currentCol].ItemExists = false;
+                        engine.World.coords[currentRow, currentCol].ItemExists = false;
 
                         engine.Player.HoldingObject = true;
                         engine.Player.CurrentlyHolding = newItem;
@@ -258,7 +261,7 @@ namespace textAdventure_walsh
 
                         chatLogTextBox.Text += "You picked up a " + newItem +
                             " and dropped a " + priorItem + ".\n";
-                        
+
                         engine.World.coords[engine.World.currentRow, engine.World.currentCol].ItemExists = true;
 
                         engine.Player.HoldingObject = true;
@@ -285,9 +288,14 @@ namespace textAdventure_walsh
                     chatLogTextBox.ScrollToCaret();
                 }
             }
+            else if (tokens[0] == "open" && engine.World.inBattle == false && engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item == "Chest"
+                        && engine.World.coords[engine.World.currentRow, engine.World.currentCol].ItemExists == true)
+            {
+                if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Key")
+                {
 
-            // else if (tokens[0] == "open" && engine.World.inBattle == false)
-
+                }
+            }
             else if (tokens[0] == "use" && engine.World.inBattle == false)
             {
                 if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Sword")
@@ -300,23 +308,36 @@ namespace textAdventure_walsh
                 }
                 else if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Health Potion")
                 {
-                    engine.Player.HLT += 100;
+                    engine.Player.HLT += 150;
+
+                    engine.Player.CurrentlyHolding = "";
+                    engine.Player.HoldingObject = false;
+
+                    chatLogTextBox.Text += "You used a potion! Your health is now at " + engine.Player.HLT + ".\n";
                 }
             }
             else if (tokens[0] == "use" && engine.World.inBattle == true)
             {
                 if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Health Potion")
                 {
-                    engine.Player.HLT += 100;
+                    engine.Player.HLT += 150;
+
+                    engine.Player.CurrentlyHolding = "";
+                    engine.Player.HoldingObject = false;
+
+                    chatLogTextBox.Text += "You used a potion! Your health is now at " + engine.Player.HLT + ".\n";
                 }
             }
             else if (tokens[0] == "attack" && engine.World.inBattle == false)
             {
-                if (engine.World.coords[engine.World.currentRow,engine.World.currentCol].HasEnemy == true && engine.Player.HasSword == true)
+                if (engine.World.coords[engine.World.currentRow, engine.World.currentCol].HasEnemy == true && engine.Player.HasSword == true)
                 {
                     chatLogTextBox.Text += "Fight started! You may not move unless you (flee or) defeat the enemy!\n";
 
                     engine.World.inBattle = true;
+
+                    otherPictureBox.Visible = true;
+                    otherPictureBox.Image = Image.FromFile("Resources/Monsters/" + engine.Monster.Name + "Icon.png");
                 }
                 else if (engine.Player.HasSword == true)
                 {
@@ -332,6 +353,9 @@ namespace textAdventure_walsh
             }
             else if (tokens[0] == "attack" && engine.World.inBattle == true)
             {
+                int currentRow = engine.World.currentRow;
+                int currentCol = engine.World.currentCol;
+
                 string response, roundResults;
                 DoATK(out response, out roundResults);
                 chatLogTextBox.Text += response;
@@ -347,25 +371,146 @@ namespace textAdventure_walsh
                 }
                 else if (engine.Monster.HLT <= 0)
                 {
+                    if (engine.World.coords[currentRow, currentCol].EnemyIndex == 1)
+                    {
+                        engine.gameWon = true;
+
+                        chatLogTextBox.Text += "The exit is right there in front of you! Go on!";
+                    }
+                    else if (engine.World.coords[currentRow, currentCol].EnemyIndex == 2)
+                    {
+                        if (engine.Player.HoldingObject == false)
+                        {
+                            chatLogTextBox.Text += "The enemy dropped a health potion! You picked it up! \n";
+
+                            engine.Player.HoldingObject = true;
+                            engine.Player.CurrentlyHolding = "Health Potion";
+                        }
+                    }
+
                     combat.fightStart = false;
                     engine.World.inBattle = false;
 
-                    engine.World.coords[engine.World.currentRow, engine.World.currentCol].HasEnemy = false;
+                    engine.World.coords[currentRow, currentCol].HasEnemy = false;
                     otherPictureBox.Visible = false;
                 }
                 chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
                 chatLogTextBox.ScrollToCaret();
             }
+            else if (tokens[0] == "talk" && engine.World.coords[engine.World.currentRow, engine.World.currentCol].HasNPC == true)
+            {
+                int currentRow = engine.World.currentRow;
+                int currentCol = engine.World.currentCol;
 
-            // else if (tokens[0] == "leave" && gameWon == true)
-            // else if (tokens[0] == "leave" && gameWon == false)
+                otherPictureBox.Visible = true;
+                otherPictureBox.Image = Image.FromFile("Resources/NPCs/" + engine.NPC.Name + "Icon.png");
+
+                if (engine.World.coords[currentRow, currentCol].HasEnemy == true)
+                {
+                    chatLogTextBox.Text += engine.NPC.Name + ": Can you PLEASE deal with the thing attacking me first??\n";
+                }
+                else
+                {
+                    if (engine.World.coords[currentRow, currentCol].NPCHasExtraDialogue == false)
+                    {
+                        if (engine.World.coords[currentRow, currentCol].SpokenToNPC == false)
+                        {
+                            chatLogTextBox.Text += engine.NPC.Name + ": Good to meet you.\n";
+
+                            engine.World.coords[currentRow, currentCol].SpokenToNPC = true;
+
+                            scrollToBottom();
+                        }
+                        else
+                        {
+                            chatLogTextBox.Text += engine.NPC.Name + ": Welcome back.\n";
+
+                            scrollToBottom();
+                        }
+                    }
+                    else if (engine.World.coords[currentRow, currentCol].NPCHasExtraDialogue == true)
+                    {
+                        string dialogue;
+
+                        if (engine.NPC.Name == "Ireth")
+                        {
+                            dialogue = engine.NPC.irethSpeak();
+
+                            chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
+
+                            scrollToBottom();
+                        }
+                        else if (engine.NPC.Name == "Sauvterre")
+                        {
+                            dialogue = engine.NPC.sauvterreSpeak();
+
+                            chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
+
+                            scrollToBottom();
+                        }
+                        else if (engine.NPC.Name == "Atlas")
+                        {
+                            dialogue = engine.NPC.atlasSpeak();
+
+                            chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
+
+                            scrollToBottom();
+                        }
+                        else if (engine.NPC.Name == "Annabelle")
+                        {
+                            dialogue = engine.NPC.annaSpeak();
+
+                            chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
+
+                            scrollToBottom();
+                        }
+                        else if (engine.NPC.Name == "Faustus")
+                        {
+                            dialogue = engine.NPC.faustSpeak();
+
+                            chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
+
+                            if (engine.NPC.DialogueFaustus04Said == true && engine.Player.HoldingObject == false)
+                            {
+                                chatLogTextBox.Text += engine.NPC.Name + " gave you a key!";
+
+                                engine.Player.HoldingObject = true;
+                                engine.Player.CurrentlyHolding = "Key";
+                                engine.NPC.FaustItemGiven = true;
+                            }
+
+
+                            scrollToBottom();
+                        }
+                    }
+                }
+            }
+            else if (tokens[0] == "talk" && engine.World.coords[engine.World.currentRow, engine.World.currentCol].HasNPC == false)
+            {
+                chatLogTextBox.Text += "Why are you talking to yourself?\n";
+
+                scrollToBottom();
+            }
+            else if (tokens[0] == "leave" && engine.gameWon == true && engine.World.coords[engine.World.currentRow, engine.World.currentCol] == engine.World.coords[2, 1])
+            {
+                chatLogTextBox.Text += "Are you sure you wish to leave? This will close the game. Enter 'yes' if you are certain.\n";
+
+                quitCheck = 1;
+
+                scrollToBottom();
+            }
+            else if (tokens[0] == "leave" && engine.gameWon == false)
+            {
+                chatLogTextBox.Text += "You can't leave the engine yet!\n";
+
+                scrollToBottom();
+            }
             else if (tokens[0] == "quit")
             {
                 quitCheck = 1;
                 chatLogTextBox.Text += "Are you sure you want to quit? Enter 'yes' if you are sure. \n";
 
-                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                chatLogTextBox.ScrollToCaret();
+                scrollToBottom();
             }
             else if (tokens[0] == "yes" && quitCheck == 1)
             {
@@ -375,8 +520,7 @@ namespace textAdventure_walsh
             {
                 chatLogTextBox.Text += "You didn't enter a valid command!\n";
 
-                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                chatLogTextBox.ScrollToCaret();
+                scrollToBottom();
             }
 
             enterTextBox.Text = "";

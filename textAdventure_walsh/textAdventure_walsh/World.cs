@@ -68,8 +68,8 @@ namespace textAdventure_walsh
             coords[0, 2].CanGoSouth = true;
             coords[0, 2].CanGoWest = false;
 
-            coords[0, 3].EnterDesc = "There's an enemy! But it seems you can sneak by right now...\n\n";
-            coords[0, 3].Desc = "The enemy seems to be asleep right now.\n\n";
+            coords[0, 3].EnterDesc = "There's an enemy!\n\n";
+            coords[0, 3].Desc = "Can you sneak by?\n\n";
             coords[0, 3].CanGoNorth = false;
             coords[0, 3].CanGoEast = false;
             coords[0, 3].CanGoSouth = true;
@@ -100,7 +100,7 @@ namespace textAdventure_walsh
             coords[1, 1].ItemExists = true;
 
             coords[1, 2].EnterDesc = "The boss is right in front of you! Sleeping.. on the exit.\n\n";
-            coords[1, 2].Desc = "Seems you can't get out until you find your sword.\n\n";
+            coords[1, 2].Desc = "Seems you can't get out until you deal with it.\n\n";
             coords[1, 2].CanGoNorth = true;
             coords[1, 2].CanGoEast = false;
             coords[1, 2].CanGoSouth = false;
@@ -118,6 +118,7 @@ namespace textAdventure_walsh
             coords[1, 3].ItemExists = true;
             coords[1, 3].HasNPC = true;
             coords[1, 3].npcIndex = 4;
+            coords[1, 3].NPCHasExtraDialogue = true;
 
             // ROW THREE
             coords[2, 0].EnterDesc = "That dude to the north is still.. doing something.\n\n";
@@ -137,8 +138,8 @@ namespace textAdventure_walsh
             coords[2, 1].npcIndex = 1;
             coords[2, 1].NPCHasExtraDialogue = true;
 
-            coords[2, 2].EnterDesc = "There's a person being attacked here! But we can't.. help.. yet. \n\n";
-            coords[2, 2].Desc = "If only you hadn't misplaced your sword. Then you could of helped. \n\n";
+            coords[2, 2].EnterDesc = "There's a young teen being attacked here! If you found your sword, help them! \n\n";
+            coords[2, 2].Desc = "They seem grumpy. \n\n";
             coords[2, 2].CanGoNorth = false;
             coords[2, 2].CanGoEast = true;
             coords[2, 2].CanGoSouth = true;
@@ -147,6 +148,7 @@ namespace textAdventure_walsh
             coords[2, 2].EnemyIndex = 3;
             coords[2, 2].HasNPC = true;
             coords[2, 2].npcIndex = 2;
+            coords[2, 2].NPCHasExtraDialogue = true;
 
             coords[2, 3].EnterDesc = "Is that person sleeping on that chest up there to the north?\n\n";
             coords[2, 3].Desc = "Yup. They're definitely asleep on that chest.\n\n";
@@ -156,8 +158,8 @@ namespace textAdventure_walsh
             coords[2, 3].CanGoWest = true;
 
             // ROW FOUR
-            coords[3, 0].EnterDesc = "There's an enemy sleeping in here! Let's slip by them for now.\n\n";
-            coords[3, 0].Desc = "Get a move on before you wake it up!\n\n";
+            coords[3, 0].EnterDesc = "There's an enemy in here!\n\n";
+            coords[3, 0].Desc = "Can you slip by?\n\n";
             coords[3, 0].CanGoEast = true;
             coords[3, 0].CanGoNorth = true;
             coords[3, 0].CanGoWest = false;
@@ -173,22 +175,23 @@ namespace textAdventure_walsh
             coords[3, 1].CanGoWest = true;
 
             coords[3, 2].EnterDesc = "There's a person being attacked to the north of us!\n\n";
-            coords[3, 2].Desc = "You should probably help but you misplaced your sword.\n\n";
+            coords[3, 2].Desc = "You should probably help!\n\n";
             coords[3, 2].CanGoNorth = true;
             coords[3, 2].CanGoEast = false;
             coords[3, 2].CanGoSouth = false;
             coords[3, 2].CanGoWest = true;
 
-            coords[3, 3].EnterDesc = "Is that person... friendly? Let's not find out.\n\n";
-            coords[3, 3].Desc = "Why are you still staring at them?\n\n";
+            coords[3, 3].EnterDesc = "Is that... person... being attacked?\n\n";
+            coords[3, 3].Desc = "You should check!\n\n";
             coords[3, 3].CanGoNorth = true;
             coords[3, 3].CanGoEast = false;
             coords[3, 3].CanGoSouth = false;
             coords[3, 3].CanGoWest = false;
             coords[3, 3].HasEnemy = true;
             coords[3, 3].HasNPC = true;
-            coords[3, 3].EnemyIndex = 2;
+            coords[3, 3].EnemyIndex = 3;
             coords[3, 3].npcIndex = 3;
+            coords[3, 3].NPCHasExtraDialogue = true;
         }
 
         private string _currentLocation;  // row space col

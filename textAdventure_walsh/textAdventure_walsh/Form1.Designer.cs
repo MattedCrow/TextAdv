@@ -35,9 +35,12 @@
             this.miniMapPictureBox = new System.Windows.Forms.PictureBox();
             this.enterButton = new System.Windows.Forms.Button();
             this.otherPictureBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.creaturePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniMapPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // chatLogTextBox
@@ -101,12 +104,36 @@
             this.otherPictureBox.TabStop = false;
             this.otherPictureBox.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(184, 225);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Current Holding";
+            this.label1.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(199, 241);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateGray;
             this.ClientSize = new System.Drawing.Size(397, 325);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.otherPictureBox);
             this.Controls.Add(this.enterButton);
             this.Controls.Add(this.miniMapPictureBox);
@@ -120,6 +147,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.creaturePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniMapPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,6 +161,8 @@
         private System.Windows.Forms.PictureBox miniMapPictureBox;
         private System.Windows.Forms.Button enterButton;
         private System.Windows.Forms.PictureBox otherPictureBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -41,6 +41,9 @@ namespace textAdventure_walsh
         private bool _dialogueFaustus04Said;
         private bool _dialogueFaustus05Said;
 
+        private bool _faustItemGiven;
+        private bool _atlasItemGiven;
+
         public NPC()
         {
             _faction = "Unknown";
@@ -74,6 +77,9 @@ namespace textAdventure_walsh
             _dialogueFaustus03Said = false;
             _dialogueFaustus04Said = false;
             _dialogueFaustus05Said = false;
+
+            _faustItemGiven = false;
+            _atlasItemGiven = false;
         }
 
         public string Faction
@@ -100,6 +106,116 @@ namespace textAdventure_walsh
             }
         }
 
+        public bool DialogueFaustus01Said
+        {
+            get; set;
+        }
+
+        public bool DialogueFaustus02Said
+        {
+            get; set;
+        }
+
+        public bool DialogueFaustus03Said
+        {
+            get; set;
+        }
+
+        public bool DialogueFaustus04Said
+        {
+            get; set;
+        }
+
+        public bool DialogueFaustus05Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAnnabelle01Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAnnabelle02Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAnnabelle03Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAnnabelle04Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAnnabelle05Said
+        {
+            get; set;
+        }
+
+        public bool DialogueSauvterre01Said
+        {
+            get; set;
+        }
+
+        public bool DialogueSauvterre02Said
+        {
+            get; set;
+        }
+
+        public bool DialogueSauvterre03Said
+        {
+            get; set;
+        }
+
+        public bool DialogueSauvterre04Said
+        {
+            get; set;
+        }
+
+        public bool DialogueSauvterre05Said
+        {
+            get; set;
+        }
+
+        public bool DialogueIreth01Said
+        {
+            get; set;
+        }
+
+        public bool DialogueIreth02Said
+        {
+            get; set;
+        }
+
+        public bool DialogueIreth03Said
+        {
+            get; set;
+        }
+
+        public bool DialogueIreth04Said
+        {
+            get; set;
+        }
+
+        public bool DialogueIreth05Said
+        {
+            get; set;
+        }
+
+        public bool FaustItemGiven
+        {
+            get; set;
+        }
+
+        public bool AtlasItemGiven
+        {
+            get; set;
+        }
+
         // Methods start here
 
         public string getInfo()
@@ -114,7 +230,7 @@ namespace textAdventure_walsh
 
         public string irethSpeak()
         {
-            string currentDialogue = "Hey!\n";
+            string currentDialogue = "Hello there!\n";
 
             if (_dialogueIreth01Said == false)
             {
@@ -130,6 +246,16 @@ namespace textAdventure_walsh
             {
                 currentDialogue = "I wonder if anything else around here would be useful for the database...\n";
                 _dialogueIreth03Said = true;
+            }
+            else if (_dialogueIreth04Said == false && _dialogueIreth03Said == true)
+            {
+                currentDialogue = "Oh- Did you want into this chest?\n";
+                _dialogueIreth04Said = true;
+            }
+            else if (_dialogueIreth05Said == false && _dialogueIreth04Said == true)
+            {
+                currentDialogue = "Let us get out of your way.\n";
+                _dialogueIreth05Said = true;
             }
 
             return currentDialogue;
@@ -160,7 +286,7 @@ namespace textAdventure_walsh
 
         public string atlasSpeak()
         {
-            string currentDialogue = "Sup.";
+            string currentDialogue = "Sup.\n";
 
             if (_dialogueAtlas01Said == false)
             {
@@ -183,7 +309,7 @@ namespace textAdventure_walsh
 
         public string annaSpeak()
         {
-            string currentDialogue = "Hello!";
+            string currentDialogue = "Hello!\n";
 
             if (_dialogueAnnabelle01Said == false)
             {
@@ -206,7 +332,7 @@ namespace textAdventure_walsh
 
         public string faustSpeak()
         {
-            string currentDialogue = "Oh-! H-Hello there!";
+            string currentDialogue = "Oh-! H-Hello there!\n";
 
             if (_dialogueFaustus01Said == false)
             {
