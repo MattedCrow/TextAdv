@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+// This program is a text adventure game! You play as the 'Player', Nillon and can fight enemies and talk to NPCs while picking up items.
+//
+// CSC 253 0051 -- Final Project -- Text Adventure -- 05.10.17
+// Matthew 'Melissa' Walsh
+
 namespace textAdventure_walsh
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         // Make some variables dude
         int quitCheck = 0;
@@ -20,10 +25,85 @@ namespace textAdventure_walsh
         private GameEngine engine;
         private CombatEngine combat;
 
+        private HelpForm help;
+
         public void scrollToBottom()
         {
             chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
             chatLogTextBox.ScrollToCaret();
+        }
+
+        public void UpdateHeldItem()
+        {
+            if (engine.Player.HoldingObject == true)
+            {
+                holdingLabel.Visible = true;
+                holdingPictureBox.Visible = true;
+
+                if (engine.Player.CurrentlyHolding == "Sword")
+                {
+                    holdingPictureBox.Image = Image.FromFile("Resources/Items/SwordIcon.png");
+                }
+                else if (engine.Player.CurrentlyHolding == "Health Potion")
+                {
+                    holdingPictureBox.Image = Image.FromFile("Resources/Items/HealthPotionIcon.png");
+                }
+                else if (engine.Player.CurrentlyHolding == "Key")
+                {
+                    holdingPictureBox.Image = Image.FromFile("Resources/Items/KeyIcon.png");
+                }
+                else if (engine.Player.CurrentlyHolding == "Strength Potion")
+                {
+                    holdingPictureBox.Image = Image.FromFile("Resources/Items/StrengthPotionIcon.png");
+                }
+                else if (engine.Player.CurrentlyHolding == "Chest")
+                {
+                    holdingPictureBox.Image = Image.FromFile("Resources/Items/chestIcon.png");
+                }
+            }
+            else
+            {
+                holdingLabel.Visible = false;
+                holdingPictureBox.Visible = false;
+            }
+        }
+
+        public void UpdateRoomItem()
+        {
+            int currentRow = engine.World.currentRow;
+            int currentCol = engine.World.currentCol;
+
+            if (engine.World.coords[currentRow,currentCol].ItemExists == true)
+            {
+                floorPictureBox.Visible = true;
+                floorLabel.Visible = true;
+
+                if (engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item == "Sword")
+                {
+                    floorPictureBox.Image = Image.FromFile("Resources/Items/SwordIcon.png");
+                }
+                else if (engine.World.coords[currentRow,currentCol].Item == "Health Potion")
+                {
+                    floorPictureBox.Image = Image.FromFile("Resources/Items/HealthPotionIcon.png");
+                }
+                else if (engine.World.coords[currentRow,currentCol].Item == "Key")
+                {
+                    floorPictureBox.Image = Image.FromFile("Resources/Items/KeyIcon.png");
+                }
+                else if (engine.World.coords[currentRow,currentCol].Item == "Strength Potion")
+                {
+                    floorPictureBox.Image = Image.FromFile("Resources/Items/StrengthPotionIcon.png");
+                }
+                else if (engine.World.coords[currentRow,currentCol].Item == "Chest")
+                {
+                    floorPictureBox.Image = Image.FromFile("Resources/Items/ChestIcon.png");
+                }
+            }
+            else
+            {
+                floorLabel.Visible = false;
+                floorPictureBox.Visible = false;
+            }
         }
 
         public void LoadPlayerInfo()
@@ -139,7 +219,7 @@ namespace textAdventure_walsh
             }
         }
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             this.AcceptButton = enterButton;
@@ -151,10 +231,16 @@ namespace textAdventure_walsh
             combat = new CombatEngine();
             engine.Init();
 
-            chatLogTextBox.Text += "Current commands are 'move (direction)', 'look', 'get', 'use', 'attack', 'talk', 'leave' (after game completion), and 'quit'.\n";
+            help = new HelpForm();
+
+            chatLogTextBox.Text += "Say 'help' or click the 'help' button for a list of commands.\n\n" +
+                "Is that something glittering over there..?\n";
             enterTextBox.Focus();
 
             LoadPlayerInfo();
+
+            UpdateHeldItem();
+            UpdateRoomItem();
         }
 
         private void enterButton_Click(object sender, EventArgs e)
@@ -200,6 +286,9 @@ namespace textAdventure_walsh
 
                     updateMonsterInfo();
                     updateNPCInfo();
+
+                    UpdateHeldItem();
+                    UpdateRoomItem();
                 }
 
                 currentMinimap = "Resources/room" + engine.World.currentRow + engine.World.currentCol + ".png";
@@ -241,15 +330,15 @@ namespace textAdventure_walsh
                         engine.Player.HoldingObject = true;
                         engine.Player.CurrentlyHolding = newItem;
 
-                        chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                        chatLogTextBox.ScrollToCaret();
+                        UpdateHeldItem();
+                        UpdateRoomItem();
+                        scrollToBottom();
                     }
                     else
                     {
                         chatLogTextBox.Text += "You can't pick up a chest!\n";
 
-                        chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                        chatLogTextBox.ScrollToCaret();
+                        scrollToBottom();
                     }
                 }
                 else if (engine.World.coords[engine.World.currentRow, engine.World.currentCol].ItemExists == true && engine.Player.HoldingObject == true)
@@ -268,24 +357,22 @@ namespace textAdventure_walsh
                         engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item = priorItem;
                         engine.Player.CurrentlyHolding = newItem;
 
-
-                        chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                        chatLogTextBox.ScrollToCaret();
+                        UpdateHeldItem();
+                        UpdateRoomItem();
+                        scrollToBottom();
                     }
                     else
                     {
                         chatLogTextBox.Text += "You can't pick up a chest!\n";
 
-                        chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                        chatLogTextBox.ScrollToCaret();
+                        scrollToBottom();
                     }
                 }
                 else
                 {
                     chatLogTextBox.Text += "There is nothing to pick up in this room!\n";
 
-                    chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                    chatLogTextBox.ScrollToCaret();
+                    scrollToBottom();
                 }
             }
             else if (tokens[0] == "open" && engine.World.inBattle == false && engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item == "Chest"
@@ -293,18 +380,37 @@ namespace textAdventure_walsh
             {
                 if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Key")
                 {
+                    chatLogTextBox.Text += "You opened the chest to find... nothing! What a ripoff!\n";
 
+                    engine.Player.CurrentlyHolding = "";
+                    engine.Player.HoldingObject = false;
+                    engine.World.coords[engine.World.currentRow, engine.World.currentCol].Item = "";
+                    engine.World.coords[engine.World.currentRow, engine.World.currentCol].ItemExists = false;
+
+                    scrollToBottom();
+                    UpdateHeldItem();
+                    UpdateRoomItem();
+                }
+                else
+                {
+                    chatLogTextBox.Text += "You need a key to open the chest!\n";
+
+                    scrollToBottom();
                 }
             }
             else if (tokens[0] == "use" && engine.World.inBattle == false)
             {
                 if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Sword")
                 {
-                    chatLogTextBox.Text += "You equipped your sword!";
+                    chatLogTextBox.Text += "You equipped your sword!\n";
 
                     engine.Player.CurrentlyHolding = "";
                     engine.Player.HoldingObject = false;
                     engine.Player.HasSword = true;
+
+                    scrollToBottom();
+                    UpdateHeldItem();
+                    UpdateRoomItem();
                 }
                 else if (engine.Player.HoldingObject == true && engine.Player.CurrentlyHolding == "Health Potion")
                 {
@@ -314,6 +420,27 @@ namespace textAdventure_walsh
                     engine.Player.HoldingObject = false;
 
                     chatLogTextBox.Text += "You used a potion! Your health is now at " + engine.Player.HLT + ".\n";
+
+                    scrollToBottom();
+                    UpdateHeldItem();
+                    UpdateRoomItem();
+                }
+                else if (tokens[0] == "use" && engine.Player.CurrentlyHolding == "Strength Potion")
+                {
+                    engine.Player.HLT += 10;
+                    engine.Player.ATK += 2;
+                    engine.Player.DEF += 1;
+                    engine.Player.SPD += 1;
+
+                    chatLogTextBox.Text += "You drank the potion! But.. did it actually do anything..?\n";
+
+                    engine.Player.CurrentlyHolding = "";
+                    engine.Player.HoldingObject = false;
+
+                    scrollToBottom();
+                    UpdateHeldItem();
+                    UpdateRoomItem();
+
                 }
             }
             else if (tokens[0] == "use" && engine.World.inBattle == true)
@@ -326,8 +453,30 @@ namespace textAdventure_walsh
                     engine.Player.HoldingObject = false;
 
                     chatLogTextBox.Text += "You used a potion! Your health is now at " + engine.Player.HLT + ".\n";
+
+                    scrollToBottom();
+                    UpdateHeldItem();
+                    UpdateRoomItem();
+                }
+                else if (tokens[0] == "use" && engine.Player.CurrentlyHolding == "Strength Potion")
+                {
+                    engine.Player.HLT += 10;
+                    engine.Player.ATK += 2;
+                    engine.Player.DEF += 1;
+                    engine.Player.SPD += 1;
+
+                    chatLogTextBox.Text += "You drank the potion! But.. did it actually do anything..?\n";
+
+                    engine.Player.CurrentlyHolding = "";
+                    engine.Player.HoldingObject = false;
+
+                    scrollToBottom();
+                    UpdateHeldItem();
+                    UpdateRoomItem();
+
                 }
             }
+            
             else if (tokens[0] == "attack" && engine.World.inBattle == false)
             {
                 if (engine.World.coords[engine.World.currentRow, engine.World.currentCol].HasEnemy == true && engine.Player.HasSword == true)
@@ -375,7 +524,7 @@ namespace textAdventure_walsh
                     {
                         engine.gameWon = true;
 
-                        chatLogTextBox.Text += "The exit is right there in front of you! Go on!";
+                        chatLogTextBox.Text += "The exit is right there in front of you! Go on!\n";
                     }
                     else if (engine.World.coords[currentRow, currentCol].EnemyIndex == 2)
                     {
@@ -385,6 +534,19 @@ namespace textAdventure_walsh
 
                             engine.Player.HoldingObject = true;
                             engine.Player.CurrentlyHolding = "Health Potion";
+
+                            UpdateHeldItem();
+                            UpdateRoomItem();
+                        }
+                        else if (engine.Player.HoldingObject == true & engine.World.coords[currentRow,currentCol].ItemExists == false)
+                        {
+                            chatLogTextBox.Text += "The enemy dropped a health potion, but you don't have room to hold it! It fell onto the floor. \n";
+
+                            engine.World.coords[currentRow, currentCol].ItemExists = true;
+                            engine.World.coords[currentRow, currentCol].Item = "Health Potion";
+
+                            UpdateHeldItem();
+                            UpdateRoomItem();
                         }
                     }
 
@@ -394,8 +556,8 @@ namespace textAdventure_walsh
                     engine.World.coords[currentRow, currentCol].HasEnemy = false;
                     otherPictureBox.Visible = false;
                 }
-                chatLogTextBox.SelectionStart = chatLogTextBox.Text.Length;
-                chatLogTextBox.ScrollToCaret();
+
+                scrollToBottom();
             }
             else if (tokens[0] == "talk" && engine.World.coords[engine.World.currentRow, engine.World.currentCol].HasNPC == true)
             {
@@ -454,6 +616,22 @@ namespace textAdventure_walsh
 
                             chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
 
+                            if (engine.NPC.DialogueAtlas03Said == true && engine.Player.HoldingObject == false && engine.NPC.AtlasItemGiven == false)
+                            {
+                                chatLogTextBox.Text += engine.NPC.Name + " gave you a key!\n";
+
+                                engine.Player.HoldingObject = true;
+                                engine.Player.CurrentlyHolding = "Key";
+                                engine.NPC.AtlasItemGiven = true;
+
+                                UpdateHeldItem();
+                                UpdateRoomItem();
+                            }
+                            else if (engine.NPC.DialogueAtlas03Said == true && engine.Player.HoldingObject == true && engine.NPC.AtlasItemGiven == false)
+                            {
+                                chatLogTextBox.Text += engine.NPC.Name + " wants to give you an item, please use your current one first!\n";
+                            }
+
                             scrollToBottom();
                         }
                         else if (engine.NPC.Name == "Annabelle")
@@ -470,15 +648,21 @@ namespace textAdventure_walsh
 
                             chatLogTextBox.Text += engine.NPC.Name + ": " + dialogue;
 
-                            if (engine.NPC.DialogueFaustus04Said == true && engine.Player.HoldingObject == false)
+                            if (engine.NPC.DialogueFaustus03Said == true && engine.Player.HoldingObject == false && engine.NPC.FaustItemGiven == false)
                             {
-                                chatLogTextBox.Text += engine.NPC.Name + " gave you a key!";
+                                chatLogTextBox.Text += engine.NPC.Name + " gave you a key!\n";
 
                                 engine.Player.HoldingObject = true;
                                 engine.Player.CurrentlyHolding = "Key";
                                 engine.NPC.FaustItemGiven = true;
-                            }
 
+                                UpdateHeldItem();
+                                UpdateRoomItem();
+                            }
+                            else if (engine.NPC.DialogueFaustus03Said == true && engine.Player.HoldingObject == true && engine.NPC.FaustItemGiven == false)
+                            {
+                                chatLogTextBox.Text += engine.NPC.Name + " wants to give you an item, please use your current one first!\n";
+                            }
 
                             scrollToBottom();
                         }
@@ -491,7 +675,7 @@ namespace textAdventure_walsh
 
                 scrollToBottom();
             }
-            else if (tokens[0] == "leave" && engine.gameWon == true && engine.World.coords[engine.World.currentRow, engine.World.currentCol] == engine.World.coords[2, 1])
+            else if (tokens[0] == "leave" && engine.gameWon == true)
             {
                 chatLogTextBox.Text += "Are you sure you wish to leave? This will close the game. Enter 'yes' if you are certain.\n";
 
@@ -501,7 +685,7 @@ namespace textAdventure_walsh
             }
             else if (tokens[0] == "leave" && engine.gameWon == false)
             {
-                chatLogTextBox.Text += "You can't leave the engine yet!\n";
+                chatLogTextBox.Text += "You can't leave the dungeon yet!\n";
 
                 scrollToBottom();
             }
@@ -515,6 +699,10 @@ namespace textAdventure_walsh
             else if (tokens[0] == "yes" && quitCheck == 1)
             {
                 this.Close();
+            }
+            else if (tokens[0] == "help")
+            {
+                help.ShowDialog();
             }
             else
             {
@@ -629,5 +817,9 @@ namespace textAdventure_walsh
             }
         }
 
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            help.ShowDialog();
+        }
     }
 }

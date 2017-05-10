@@ -44,7 +44,7 @@ namespace textAdventure_walsh
 
             // ROW ONE
             coords[0, 0].EnterDesc = "This room is where you came in.\n\n";
-            coords[0, 0].Desc = "The entrance is right there.\n\n";
+            coords[0, 0].Desc = "Is that something glittering over there..?\n\n";
             coords[0, 0].CanGoEast = true;
             coords[0, 0].CanGoNorth = false;
             coords[0, 0].CanGoWest = false;
@@ -80,7 +80,7 @@ namespace textAdventure_walsh
             coords[0, 3].EnemyIndex = 3;  //Hellhound
 
             // ROW TWO
-            coords[1, 0].EnterDesc = "That guy looks annoyed with whatever he's doing. Might want to leave him alone for now...\n\n";
+            coords[1, 0].EnterDesc = "That guy looks annoyed with whatever he's doing. Might want to leave him alone for now.. or maybe you could try talk to him..?\n\n";
             coords[1, 0].Desc = "Is he an elf..? Or a dryad..?\n\n";
             coords[1, 0].CanGoEast = false;
             coords[1, 0].CanGoNorth = true;
@@ -137,6 +137,8 @@ namespace textAdventure_walsh
             coords[2, 1].HasNPC = true;
             coords[2, 1].npcIndex = 1;
             coords[2, 1].NPCHasExtraDialogue = true;
+            coords[2, 1].ItemExists = true;
+            coords[2, 1].Item = "Chest";
 
             coords[2, 2].EnterDesc = "There's a young teen being attacked here! If you found your sword, help them! \n\n";
             coords[2, 2].Desc = "They seem grumpy. \n\n";

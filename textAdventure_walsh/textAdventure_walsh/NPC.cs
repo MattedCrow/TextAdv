@@ -106,6 +106,31 @@ namespace textAdventure_walsh
             }
         }
 
+        public bool DialogueAtlas01Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAtlas02Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAtlas03Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAtlas04Said
+        {
+            get; set;
+        }
+
+        public bool DialogueAtlas05Said
+        {
+            get; set;
+        }
+
         public bool DialogueFaustus01Said
         {
             get; set;
@@ -265,20 +290,20 @@ namespace textAdventure_walsh
         {
             string currentDialogue = "What?\n";
 
-            if (_dialogueSauvterre01Said == false)
+            if (DialogueSauvterre01Said == false)
             {
                 currentDialogue = "Name's Rémi Sauvterre. If anybody asks, I'm an elf.\n";
-                _dialogueSauvterre01Said = true;
+                DialogueSauvterre01Said = true;
             }
-            else if (_dialogueSauvterre02Said == false && _dialogueSauvterre01Said == true)
+            else if (DialogueSauvterre02Said == false && DialogueSauvterre01Said == true)
             {
                 currentDialogue = "Do you need something..?\n";
-                _dialogueSauvterre02Said = true;
+                DialogueSauvterre02Said = true;
             }
-            else if (_dialogueSauvterre03Said == false && _dialogueSauvterre02Said == true)
+            else if (DialogueSauvterre03Said == false && DialogueSauvterre02Said == true)
             {
                 currentDialogue = "Be careful who you trust around here.\n";
-                _dialogueSauvterre03Said = true;
+                DialogueSauvterre03Said = true;
             }
 
             return currentDialogue;
@@ -288,20 +313,20 @@ namespace textAdventure_walsh
         {
             string currentDialogue = "Sup.\n";
 
-            if (_dialogueAtlas01Said == false)
+            if (DialogueAtlas01Said == false)
             {
                 currentDialogue = "Thanks for uh.. Helping me out there and all.\n";
-                _dialogueAtlas01Said = true;
+                DialogueAtlas01Said = true;
             }
-            else if (_dialogueAtlas02Said == false && _dialogueAtlas01Said == true)
+            else if (DialogueAtlas02Said == false && DialogueAtlas01Said == true)
             {
                 currentDialogue = "Just. Don't tell anybody you did that.\n";
-                _dialogueAtlas02Said = true;
+                DialogueAtlas02Said = true;
             }
-            else if (_dialogueAtlas03Said == false && _dialogueAtlas02Said == true)
+            else if (DialogueAtlas03Said == false && DialogueAtlas02Said == true)
             {
-                currentDialogue = "... What?\n";
-                _dialogueAtlas03Said = true;
+                currentDialogue = "Ugh, here, take this.\n";
+                DialogueAtlas03Said = true;
             }
 
             return currentDialogue;
@@ -311,20 +336,20 @@ namespace textAdventure_walsh
         {
             string currentDialogue = "Hello!\n";
 
-            if (_dialogueAnnabelle01Said == false)
+            if (DialogueAnnabelle01Said == false)
             {
-                currentDialogue = "Thanks for uh.. Helping me out there and all.\n";
-                _dialogueAnnabelle01Said = true;
+                currentDialogue = "Zzz...\n";
+                DialogueAnnabelle01Said = true;
             }
-            else if (_dialogueAnnabelle02Said == false && _dialogueAnnabelle01Said == true)
+            else if (DialogueAnnabelle02Said == false && DialogueAnnabelle01Said == true)
             {
-                currentDialogue = "Just. Don't tell anybody you did that.\n";
-                _dialogueAnnabelle02Said = true;
+                currentDialogue = "Oh-! My apologies.. I seemed to have fallen asleep..\n";
+                DialogueAnnabelle02Said = true;
             }
-            else if (_dialogueAnnabelle03Said == false && _dialogueAnnabelle02Said == true)
+            else if (DialogueAnnabelle03Said == false && DialogueAnnabelle02Said == true)
             {
-                currentDialogue = "... What?\n";
-                _dialogueAnnabelle03Said = true;
+                currentDialogue = "I'll move now-! I couldn't find the key for this anyways.\n";
+                DialogueAnnabelle03Said = true;
             }
 
             return currentDialogue;
@@ -334,20 +359,20 @@ namespace textAdventure_walsh
         {
             string currentDialogue = "Oh-! H-Hello there!\n";
 
-            if (_dialogueFaustus01Said == false)
+            if (DialogueFaustus01Said == false)
             {
                 currentDialogue = "T-Thank you, thank you, thank you!\n";
-                _dialogueFaustus01Said = true;
+                DialogueFaustus01Said = true;
             }
-            else if (_dialogueFaustus02Said == false && _dialogueFaustus01Said == true)
+            else if (DialogueFaustus02Said == false && DialogueFaustus01Said == true)
             {
                 currentDialogue = "I was in a really sticky situation there.\n";
-                _dialogueFaustus02Said = true;
+                DialogueFaustus02Said = true;
             }
-            else if (_dialogueFaustus03Said == false && _dialogueFaustus02Said == true)
+            else if (DialogueFaustus03Said == false && DialogueFaustus02Said == true)
             {
                 currentDialogue = "Please, let me give you something!\n";
-                _dialogueFaustus03Said = true;
+                DialogueFaustus03Said = true;
             }
 
             return currentDialogue;
