@@ -1,0 +1,5 @@
+Player
+Oni
+Human
+Hellhound
+Gaki

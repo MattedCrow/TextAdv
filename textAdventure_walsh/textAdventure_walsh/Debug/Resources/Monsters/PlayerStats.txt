@@ -1,0 +1,7 @@
+Player
+It's you, the hero!
+100
+28
+15
+12
+11
