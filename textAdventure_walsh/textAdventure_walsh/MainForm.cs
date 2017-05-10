@@ -256,47 +256,56 @@ namespace textAdventure_walsh
 
             if (tokens[0] == "move" && engine.World.inBattle == false)
             {
-                string direction = tokens[1];
-
-                engine.World.MoveCharacter(direction, engine.World.currentRow, engine.World.currentCol);
-
-                string newLocation = engine.World.CurrentLocation;
-
-                string[] newCoords = newLocation.Split(delim);
-
-                int newRow;
-                int newCol;
-
-                int.TryParse(newCoords[0], out newRow);
-                int.TryParse(newCoords[1], out newCol);
-
-                if (engine.World.currentRow == newRow && engine.World.currentCol == newCol)
+                if (tokens.Length < 2)
                 {
-                    chatLogTextBox.Text += "You can't move through walls!\n"
-                        + "Current location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
-                    engine.World.currentRow = newRow;
-                    engine.World.currentCol = newCol;
+                    chatLogTextBox.Text += "Please enter a direction!\n";
+
+                    scrollToBottom();
                 }
                 else
                 {
-                    engine.World.currentRow = newRow;
-                    engine.World.currentCol = newCol;
-                    chatLogTextBox.Text += "You moved one space! New location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
-                    chatLogTextBox.Text += engine.World.coords[newRow, newCol].EnterDesc;
+                    string direction = tokens[1];
 
-                    updateMonsterInfo();
-                    updateNPCInfo();
+                    engine.World.MoveCharacter(direction, engine.World.currentRow, engine.World.currentCol);
 
-                    UpdateHeldItem();
-                    UpdateRoomItem();
+                    string newLocation = engine.World.CurrentLocation;
+
+                    string[] newCoords = newLocation.Split(delim);
+
+                    int newRow;
+                    int newCol;
+
+                    int.TryParse(newCoords[0], out newRow);
+                    int.TryParse(newCoords[1], out newCol);
+
+                    if (engine.World.currentRow == newRow && engine.World.currentCol == newCol)
+                    {
+                        chatLogTextBox.Text += "You can't move through walls!\n"
+                            + "Current location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
+                        engine.World.currentRow = newRow;
+                        engine.World.currentCol = newCol;
+                    }
+                    else
+                    {
+                        engine.World.currentRow = newRow;
+                        engine.World.currentCol = newCol;
+                        chatLogTextBox.Text += "You moved one space! New location is (" + engine.World.currentRow + "," + engine.World.currentCol + ").\n";
+                        chatLogTextBox.Text += engine.World.coords[newRow, newCol].EnterDesc;
+
+                        updateMonsterInfo();
+                        updateNPCInfo();
+
+                        UpdateHeldItem();
+                        UpdateRoomItem();
+                    }
+
+                    currentMinimap = "Resources/room" + engine.World.currentRow + engine.World.currentCol + ".png";
+                    miniMapPictureBox.Image = Image.FromFile(currentMinimap);
+
+                    scrollToBottom();
+
+                    otherPictureBox.Visible = false;
                 }
-
-                currentMinimap = "Resources/room" + engine.World.currentRow + engine.World.currentCol + ".png";
-                miniMapPictureBox.Image = Image.FromFile(currentMinimap);
-
-                scrollToBottom();
-
-                otherPictureBox.Visible = false;
             }
             else if (tokens[0] == "look" && engine.World.inBattle == false)
             {
